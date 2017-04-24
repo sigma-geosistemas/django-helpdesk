@@ -120,7 +120,7 @@ class EditTicketForm(CustomFieldMixin, forms.ModelForm):
 class EditFollowUpForm(forms.ModelForm):
     class Meta:
         model = FollowUp
-        exclude = ('date', 'user',)
+        exclude = ('date', 'user', 'ticket')
 
     def __init__(self, *args, **kwargs):
         """Filter not openned tickets here."""
