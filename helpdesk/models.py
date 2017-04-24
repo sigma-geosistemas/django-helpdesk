@@ -261,6 +261,9 @@ class Queue(models.Model):
         verbose_name=_('Default owner'),
     )
 
+    def __unicode__(self):
+        return self.title
+
     def __str__(self):
         return "%s" % self.title
 
@@ -571,6 +574,9 @@ class Ticket(models.Model):
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
 
+    def __unicode__(self):
+        return self.title
+
     def __str__(self):
         return '%s %s' % (self.id, self.title)
 
@@ -674,6 +680,9 @@ class FollowUp(models.Model):
         ordering = ('date',)
         verbose_name = _('Follow-up')
         verbose_name_plural = _('Follow-ups')
+
+    def __unicode__(self):
+        return self.title
 
     def __str__(self):
         return '%s' % self.title
@@ -830,6 +839,9 @@ class PreSetReply(models.Model):
                     '- the current user.'),
     )
 
+    def __unicode__(self):
+        return self.name
+
     def __str__(self):
         return '%s' % self.name
 
@@ -862,6 +874,9 @@ class EscalationExclusion(models.Model):
         _('Date'),
         help_text=_('Date on which escalation should not happen'),
     )
+
+    def __unicode__(self):
+        return self.name
 
     def __str__(self):
         return '%s' % self.name
@@ -922,6 +937,9 @@ class EmailTemplate(models.Model):
         help_text=_('Locale of this template.'),
     )
 
+    def __unicode__(self):
+        return self.template_name
+
     def __str__(self):
         return '%s' % self.template_name
 
@@ -950,6 +968,9 @@ class KBCategory(models.Model):
     description = models.TextField(
         _('Description'),
     )
+
+    def __unicode__(self):
+        return '%s' % self.title
 
     def __str__(self):
         return '%s' % self.title
@@ -1018,6 +1039,9 @@ class KBItem(models.Model):
             return _('Unrated')
     score = property(_score)
 
+    def __unicode__(self):
+        return '%s' % self.title
+
     def __str__(self):
         return '%s' % self.title
 
@@ -1065,6 +1089,9 @@ class SavedSearch(models.Model):
         _('Search Query'),
         help_text=_('Pickled query object. Be wary changing this.'),
     )
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def __str__(self):
         if self.shared:
@@ -1121,6 +1148,9 @@ class UserSettings(models.Model):
             return {}
 
     settings = property(_get_settings, _set_settings)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def __str__(self):
         return 'Preferences for %s' % self.user
@@ -1190,6 +1220,9 @@ class IgnoreEmail(models.Model):
         help_text=_('Do you want to save emails from this address in the mailbox? '
                     'If this is unticked, emails from this address will be deleted.'),
     )
+
+    def __unicode__(self):
+        return self.name
 
     def __str__(self):
         return '%s' % self.name
@@ -1281,6 +1314,9 @@ class TicketCC(models.Model):
         else:
             return self.email
     display = property(_display)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def __str__(self):
         return '%s for %s' % (self.display, self.ticket.title)
@@ -1398,6 +1434,9 @@ class CustomField(models.Model):
 
     objects = CustomFieldManager()
 
+    def __unicode__(self):
+        return self.name
+
     def __str__(self):
         return '%s' % self.name
 
@@ -1419,6 +1458,9 @@ class TicketCustomFieldValue(models.Model):
     )
 
     value = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def __str__(self):
         return '%s / %s' % (self.ticket, self.field)
@@ -1452,6 +1494,9 @@ class TicketDependency(models.Model):
         verbose_name=_('Depends On Ticket'),
         related_name='depends_on',
     )
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
     def __str__(self):
         return '%s / %s' % (self.ticket, self.depends_on)
