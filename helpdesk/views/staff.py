@@ -196,7 +196,6 @@ def followup_edit(request, ticket_id, followup_id):
     if request.method == 'GET':
         form = EditFollowUpForm(initial={
             'title': escape(followup.title),
-            'ticket': followup.ticket,
             'comment': escape(followup.comment),
             'public': followup.public,
             'new_status': followup.new_status,
@@ -215,13 +214,12 @@ def followup_edit(request, ticket_id, followup_id):
         form = EditFollowUpForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data['title']
-            _ticket = form.cleaned_data['ticket']
             comment = form.cleaned_data['comment']
             public = form.cleaned_data['public']
             new_status = form.cleaned_data['new_status']
             # will save previous date
             old_date = followup.date
-            new_followup = FollowUp(title=title, date=old_date, ticket=_ticket, comment=comment, public=public, new_status=new_status, )
+            new_followup = FollowUp(title=title, date=old_date, ticket=ticket, comment=comment, public=public, new_status=new_status, )
             # keep old user if one did exist before.
             if followup.user:
                 new_followup.user = followup.user
