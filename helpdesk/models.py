@@ -540,6 +540,9 @@ class Ticket(models.Model):
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
 
+    def __unicode__(self):
+        return u'%s %s' % (self.id, self.title)
+
     def __str__(self):
         return '%s %s' % (self.id, self.title)
 
